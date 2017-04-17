@@ -30,6 +30,8 @@ var Persons = orm.define('Persons', {
   facebook: {type: Sequelize.STRING, allowNull: true},
   linkedin: {type: Sequelize.STRING, allowNull: true},
   remark: {type: Sequelize.TEXT, allowNull: true}
+}, {
+  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
 });
 
 Persons.sync();

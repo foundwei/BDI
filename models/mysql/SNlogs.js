@@ -17,6 +17,8 @@ var SNlogs = orm.define('NSlogs', {
   startdate: {type: Sequelize.DATE, allowNull: true},
   enddate: {type: Sequelize.DATE, allowNull: true},
   memo: {type: Sequelize.STRING, allowNull: true}
+}, {
+  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
 });
 
 SNlogs.sync();

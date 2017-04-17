@@ -17,6 +17,8 @@ var Ships = orm.define('Ships', {
   twitter: {type: Sequelize.STRING, allowNull: false},
   facebook: {type: Sequelize.STRING, allowNull: false},
   category: {type: Sequelize.INTEGER, allowNull: true}
+}, {
+  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
 });
 
 Ships.sync();

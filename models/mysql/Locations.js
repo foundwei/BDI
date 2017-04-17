@@ -17,6 +17,8 @@ var Locations = orm.define('Locations', {
   startdate: {type: Sequelize.DATE, allowNull: true},
   enddate: {type: Sequelize.DATE, allowNull: true},
   memo: {type: Sequelize.TEXT, allowNull: true}
+}, {
+  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
 });
 
 Locations.sync();

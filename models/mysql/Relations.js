@@ -15,6 +15,8 @@ var Relaitons = orm.define('Relaitons', {
   pid1: {type: Sequelize.INTEGER, allowNull: false},
   pid2: {type: Sequelize.INTEGER, allowNull: false},
   relation: {type: Sequelize.STRING, allowNull: false}
+}, {
+  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
 });
 
 Relaitons.sync();

@@ -56,7 +56,7 @@ var myconf = {
 
 var sequelize = new Sequelize('bdi', 'root', 'admin', myconf);
 sequelize.authenticate().then(function(err) {
-  console.log('Connection has been established successfully.');
+  console.log('Connection to Mysql has been established successfully.');
 }).catch(function (err) {
   console.log('Unable to connect to the database:', err);
 });
