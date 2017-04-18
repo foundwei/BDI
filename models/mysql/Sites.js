@@ -19,7 +19,9 @@ var Sites = orm.define('Sites', {
   longname: {type: Sequelize.STRING, allowNull: true},
   formattedaddress: {type: Sequelize.STRING, allowNull: true}
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 Sites.sync();

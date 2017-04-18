@@ -15,7 +15,9 @@ var Categories = orm.define('Categories', {
   name: {type: Sequelize.STRING},
   memo: {type: Sequelize.STRING, allowNull: true}
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 Categories.sync();

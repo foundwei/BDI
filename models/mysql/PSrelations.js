@@ -12,13 +12,31 @@ var orm = require("../../utils/mysqlconn.js");
 var PSrelaitons = orm.define('PSrelaitons', {
   // auto increment, primaryKey, unique
   psid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, unique: true, allowNull: false},
-  pid: {type: Sequelize.INTEGER, allowNull: false},
-  shid: {type: Sequelize.INTEGER, allowNull: false},
+  pid: {
+    type: Sequelize.INTEGER, 
+    allowNull: false,
+    field: 'pid',
+    references: {
+      model: 'Persons',
+      key: 'pid'
+    }
+  },
+  shid: {
+    type: Sequelize.INTEGER, 
+    allowNull: false,
+    field: 'shid',
+    references: {
+      model: 'Ships',
+      key: 'shid'
+    }
+  },
   startdate: {type: Sequelize.DATE, allowNull: true},
   enddate: {type: Sequelize.DATE, allowNull: true},
   memo: {type: Sequelize.TEXT, allowNull: true}
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 PSrelaitons.sync();

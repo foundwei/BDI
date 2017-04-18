@@ -31,7 +31,9 @@ var Persons = orm.define('Persons', {
   linkedin: {type: Sequelize.STRING, allowNull: true},
   remark: {type: Sequelize.TEXT, allowNull: true}
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 Persons.sync();

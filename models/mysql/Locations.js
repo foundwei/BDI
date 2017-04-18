@@ -12,13 +12,31 @@ var orm = require("../../utils/mysqlconn.js");
 var Locations = orm.define('Locations', {
   // auto increment, primaryKey, unique
   lid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, unique: true, allowNull: false},
-  shid: {type: Sequelize.INTEGER, allowNull: false},
-  sid: {type: Sequelize.INTEGER, allowNull: false},
+  shid: {
+    type: Sequelize.INTEGER, 
+    allowNull: false,
+    field: 'shid',
+    references: {
+      model: 'Ships',
+      key: 'shid'
+    }
+  },
+  sid: {
+    type: Sequelize.INTEGER, 
+    allowNull: false,
+    field: 'sid',
+    references: {
+      model: 'Sites',
+      key: 'sid'
+    }
+  },
   startdate: {type: Sequelize.DATE, allowNull: true},
   enddate: {type: Sequelize.DATE, allowNull: true},
   memo: {type: Sequelize.TEXT, allowNull: true}
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 Locations.sync();

@@ -16,9 +16,20 @@ var Ships = orm.define('Ships', {
   pennantno: {type: Sequelize.STRING, allowNull: false},
   twitter: {type: Sequelize.STRING, allowNull: false},
   facebook: {type: Sequelize.STRING, allowNull: false},
-  category: {type: Sequelize.INTEGER, allowNull: true}
+  category: {
+    type: Sequelize.INTEGER, 
+    allowNull: true, 
+    field: 'category',
+    unique: true, 
+    references: {
+      model: 'Categories',
+      key: 'cid'
+    }
+  }
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 Ships.sync();

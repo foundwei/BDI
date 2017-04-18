@@ -16,7 +16,9 @@ var Users = orm.define('Users', {
   password: {type: Sequelize.STRING, allowNull: false},
   memo: {type: Sequelize.STRING, allowNull: true}
 }, {
-  timestamps: false   // don't add the timestamp attributes (updatedAt, createdAt)
+  timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
+  charset: 'utf8',
+  collate: 'utf8_general_ci'
 });
 
 Users.sync();
