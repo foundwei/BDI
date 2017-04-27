@@ -42,6 +42,7 @@ TwitterDAO.prototype.findLatestOne = function(sn, callback) {
 };
 
 /**
+ * retrieve all tweets by page
  * pn : page number, start from 1 not 0
  * ps : page size
  */
@@ -56,6 +57,7 @@ TwitterDAO.prototype.findAllByPage = function(pn, ps, callback) {
 };
 
 /**
+ * retrieve the tweets of a specific screen name by page
  * pn : page number, start from 1 not 0
  * ps : page size
  * sn : screen name
@@ -71,6 +73,7 @@ TwitterDAO.prototype.findNameByPage = function(pn, ps, sn, callback) {
 };
 
 /**
+ * retrieve the flagged tweets by page
  * pn  : page number, start from 1 not 0
  * ps  : page size
  * flag: true(always)

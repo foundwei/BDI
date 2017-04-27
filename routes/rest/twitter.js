@@ -38,13 +38,13 @@ router.get('/:screenname', function(req, res, next) {
   });
 });
 
-/* Get the questionable tweets. */
+/* Get the valuable tweets. */
 router.get('/flag', function(req, res, next) {
   var ps = req.params.ps | conf.pagesize;
   var pn = req.params.pn;
   Twitter.findFlagByPage(pn, ps, function(err, docs) {
     if(err) {
-        res.send('Failed to fetch tweets of ' + sn + '!');
+        res.send('Failed to fetch the flagged tweets!');
     } else {
         res.send(docs.content);
     }

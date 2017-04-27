@@ -11,7 +11,10 @@ var Schema = db.mongoose.Schema;
 // update the schema according to the real need.
 var FacebookSchema = new Schema({
 	pubdate: String,
+	screenname: String,
+	flag: Boolean,	// mark the valuable fb
 	content: [String],
+	localmediaurl: String,	// downlaod the media resource to local
 	adddate: Date
 });
 
@@ -23,5 +26,66 @@ var FacebookDAO = function() {};
  * implement the methods in FacebookDAO.prototype.
  * 
  */
+FacebookDAO.prototype.save = function(obj, callback) {
+	var instance = new Facebook(obj);
+	instance.save(function(err) {
+		callback(err);
+	});
+}
+
+/**
+ * sn : screen name
+ */ 
+FacebookDAO.prototype.findLatestOne = function(sn, callback) {
+	Facebook.findOne({screenname: sn}, null, {sort: {adddate: -1}}, function(err, doc) {
+		callback(err, doc);
+	});
+};
+
+/**
+ * pn : page number, start from 1 not 0
+ * ps : page size
+ */
+FacebookDAO.prototype.findAllByPage = function(pn, ps, callback) {
+	var query = Facebook.find({}, null, {sort: {adddate: -1}});
+	query.skip((pn - 1) * ps);
+	query.limit(ps);
+	
+	query.exec(function(err, docs) {
+		callback(err, docs);
+	});
+};
+
+/**
+ * retrieve the facebook of a specific screen name by page 
+ * pn : page number, start from 1 not 0
+ * ps : page size
+ * sn : screen name
+ */
+FacebookDAO.prototype.findNameByPage = function(pn, ps, sn, callback) {
+	var query = Facebook.find({sreenname: sn}, null, {sort: {adddate: -1}});
+	query.skip((pn - 1) * ps);
+	query.limit(ps);
+	
+	query.exec(function(err, docs) {
+		callback(err, docs);
+	});
+};
+
+/**
+ * retrieve the flagged facebook by page
+ * pn  : page number, start from 1 not 0
+ * ps  : page size
+ * flag: true(always)
+ */
+FacebookDAO.prototype.findFlagByPage = function(pn, ps, callback) {
+	var query = Facebook.find({flag: true}, null, {sort: {adddate: -1}});
+	query.skip((pn - 1) * ps);
+	query.limit(ps);
+	
+	query.exec(function(err, docs) {
+		callback(err, docs);
+	});
+};
 
 module.exports = new FacebookDAO();
