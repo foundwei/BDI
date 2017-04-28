@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "fb": "^2.0.0",
     "jade": "^1.11.0",
     "jquery": "^3.2.1",
     "jsdom": "^9.12.0",
@@ -18,6 +19,7 @@
     "mongoose": "^4.9.1",
     "morgan": "~1.8.1",
     "mysql": "^2.13.0",
+    "ntwitter": "^0.5.0",
     "sequelize": "~3.30.4",
     "serve-favicon": "~2.4.1",
     "socket.io": "~0.9.14"

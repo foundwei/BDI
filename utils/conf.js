@@ -15,7 +15,7 @@ var twitter_access_token_secret = '54iNGxzH5MNxwgL5qVGfYHZMwc4g7oo7UADBobYyVBQjY
 
 var facebook_app_id = '';
 var facebook_app_secret = '';
-var facebook_api_version = '2.9';
+var facebook_api_version = 'v2.9';
 
 
 module.exports.pagesize = pagesize;
