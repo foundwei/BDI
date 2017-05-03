@@ -4,7 +4,7 @@
  * @author Wei Chengli (foundwei@qq.com)
  * @version 1.0 (2017-03-24)
  */
- 
+
 var db = require('../../utils/mongoconn.js');
 var Schema = db.mongoose.Schema;
 

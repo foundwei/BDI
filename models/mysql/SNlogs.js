@@ -11,12 +11,10 @@ var orm = require("../../utils/mysqlconn.js");
 // OR mapping
 var SNlogs = orm.define('NSlogs', {
   // auto increment, primaryKey, unique
-  lid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, unique: true, allowNull: false},
-  shid: {type: Sequelize.INTEGER, allowNull: false},
-  sid: {type: Sequelize.INTEGER, allowNull: false},
-  startdate: {type: Sequelize.DATE, allowNull: true},
-  enddate: {type: Sequelize.DATE, allowNull: true},
-  memo: {type: Sequelize.STRING, allowNull: true}
+  snid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, unique: true, allowNull: false},
+  account: {type: Sequelize.INTEGER, allowNull: false},
+  lasttime: {type: Sequelize.DATE, allowNull: true},
+  reserved: {type: Sequelize.STRING, allowNull: true}
 }, {
   timestamps: false,   // don't add the timestamp attributes (updatedAt, createdAt)
   charset: 'utf8',
