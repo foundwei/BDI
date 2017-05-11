@@ -12,7 +12,7 @@ var orm = require("../../utils/mysqlconn.js");
 var SNlogs = orm.define('NSlogs', {
   // auto increment, primaryKey, unique
   snid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, unique: true, allowNull: false},
-  account: {type: Sequelize.INTEGER, allowNull: false},
+  account: {type: Sequelize.STRING, allowNull: false},
   lasttime: {type: Sequelize.DATE, allowNull: true},
   reserved: {type: Sequelize.STRING, allowNull: true}
 }, {
@@ -30,5 +30,21 @@ var SNlogsDAO = function() {};
  * implement the methods in SNlogsDAO.prototype.
  * 
  */
+
+/**
+ * find the last one information of a specific account
+ * accname: account
+ */ 
+SNlogsDAO.prototype.findOneByAccount = function(accname, callback) {
+  SNlogs.findOne({where: {account: accname}}).then(function(snlog) {
+    callback(snlog);
+  });
+};
+
+
+SNlogsDAO.prototype.upsertByAccount = function(object) {
+  SNlogs.upsert(object);
+  
+};
  
  module.exports = new SNlogsDAO();

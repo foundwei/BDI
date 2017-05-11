@@ -7,6 +7,7 @@
  
 var conf = require('../utils/conf.js');
 var Tweet = require('../models/mongo/Twitter.js');
+var SNLog = require('../models/mysql/SNLogs.js');
 var twitter = require('ntwitter');
 
 var last_id;
@@ -25,9 +26,12 @@ var twit = new twitter({
  * sn : screen name
  */
 function getLastId(sn, callback) {
-  // To do: get the last id of sn from table SNLogs and if ok, execute the callback function
+  // get the last id of sn from table SNLogs and if ok, execute the callback function
   // please use the reserved field to store the last id of twitter account
-  callback(sn);
+  SNLog.findOneByAccount(sn, function(snlog) {
+    last_id = snlog.reserved;
+    callback(sn);
+  });
 }
 
 function saveResult(d) {
@@ -40,8 +44,8 @@ function saveResult(d) {
     }
     
     last_id = d[0].id;
-    // To do: save the last id of current account to table SNLogs
-    
+    // save the last id of current account to table SNLogs
+    SNLog.upsertByAccount({account: d[0].user.screenname, lasttime: null, reserved: last_id});
   }
 }
 
@@ -53,7 +57,7 @@ function saveResult(d) {
 function getTweetsOfSomeone(sn) {
   twit.verifyCredentials(function(err, data) {
     console.log(data);
-  }).updateStatus('BDU/' + twitter.VERSION, function(err, data) {
+  }).updateStatus('BDI/' + twitter.VERSION, function(err, data) {
     console.log(data);
   });
   
