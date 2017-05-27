@@ -14,10 +14,10 @@ var last_id;
 var trytimes = 5;
 
 var twit = new twitter({
-  consumer_key: conf.consumer_key,
-  consumer_secret: conf.consumer_secret,
-  access_token_key: conf.access_token_key,
-  access_token_secret: conf.access_token_secret
+  consumer_key: conf.twiiter_consumer_key,
+  consumer_secret: conf.twitter_consumer_secret,
+  access_token_key: conf.twitter_access_token_key,
+  access_token_secret: conf.twitter_access_token_secret
 });
 
 /**

@@ -41,6 +41,15 @@ SNlogsDAO.prototype.findOneByAccount = function(accname, callback) {
   });
 };
 
+/**
+ * find the last one information of a specific facebook account
+ * accname: account
+ */ 
+SNlogsDAO.prototype.findOneByFBAccount = function(accname, callback) {
+  SNlogs.findOne({where: {account: accname, reserved: 'fb'}}).then(function(snlog) {
+    callback(snlog);
+  });
+};
 
 SNlogsDAO.prototype.upsertByAccount = function(object) {
   SNlogs.upsert(object);
