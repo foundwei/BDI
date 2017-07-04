@@ -25,14 +25,14 @@ var CsgDAO = function() {};
  * 
  */
 CsgDAO.prototype.save = function(obj) {
- var instance = new Csg(obj);
- instance.save(function(err) {
- 	if(err) {
-		logger.error(err);
- 	} else {
-  	logger.info('Save a Csg ok!');
-    }
- });
+	var instance = new Csg(obj);
+	instance.save(function(err) {
+	 	if(err) {
+			logger.error(err);
+	 	} else {
+	  	logger.info('Save a Csg ok!');
+	  }
+	});
 };
 
 /**

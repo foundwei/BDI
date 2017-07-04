@@ -7,6 +7,7 @@
 
 var db = require('../../utils/mongoconn.js');
 var Schema = db.mongoose.Schema;
+var logger = require('../../utils/utils.js').logger('model-Twitter');
 
 // update the schema according to the real need.
 var TwitterSchema = new Schema({
@@ -25,10 +26,14 @@ var TwitterDAO = function() {};
  * implement the methods in TwitterDAO.prototype.
  * 
  */
-TwitterDAO.prototype.save = function(obj, callback) {
+TwitterDAO.prototype.save = function(obj) {
 	var instance = new Twitter(obj);
 	instance.save(function(err) {
-		callback(err);
+	 	if(err) {
+			logger.error(err);
+	 	} else {
+	  	logger.info('Save a Twitter ok!');
+	  }
 	});
 }
 
