@@ -7,6 +7,7 @@
  
 var db = require('../../utils/mongoconn.js');
 var Schema = db.mongoose.Schema;
+var logger = require('../../utils/utils.js').logger('model-Officialinfo');
 
 // update the schema according to the real need.
 var OfficialinfoSchema = new Schema({
@@ -23,5 +24,15 @@ var OfficialinfoDAO = function() {};
  * implement the methods in OfficialinfoDAO.prototype.
  * 
  */
+OfficialinfoDAO.prototype.save = function(obj) {
+ var instance = new Officialinfo(obj);
+ instance.save(function(err) {
+ 	if(err) {
+		logger.error(err);
+ 	} else {
+  	logger.info('Save a Csg ok!');
+    }
+ });
+};
 
 module.exports = new OfficialinfoDAO();
