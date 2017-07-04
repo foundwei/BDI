@@ -7,6 +7,7 @@
  
 var db = require('../../utils/mongoconn.js');
 var Schema = db.mongoose.Schema;
+var logger = require('../../utils/utils.js').logger('model-Facebook');
 
 // update the schema according to the real need.
 var FacebookSchema = new Schema({
@@ -26,11 +27,15 @@ var FacebookDAO = function() {};
  * implement the methods in FacebookDAO.prototype.
  * 
  */
-FacebookDAO.prototype.save = function(obj, callback) {
+FacebookDAO.prototype.save = function(obj) {
 	var instance = new Facebook(obj);
 	instance.save(function(err) {
-		callback(err);
-	});
+ 	if(err) {
+		logger.error(err);
+ 	} else {
+  	logger.info('Save a Facebook ok!');
+    }
+ });
 }
 
 /**
