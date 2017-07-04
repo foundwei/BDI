@@ -26,13 +26,13 @@ var OfficialinfoDAO = function() {};
  */
 OfficialinfoDAO.prototype.save = function(obj) {
  var instance = new Officialinfo(obj);
- instance.save(function(err) {
- 	if(err) {
-		logger.error(err);
- 	} else {
-  	logger.info('Save a Csg ok!');
+  instance.save(function(err) {
+   	if(err) {
+  		logger.error(err);
+   	} else {
+  	logger.info('Save a Officalinfo ok!');
     }
- });
+  });
 };
 
 module.exports = new OfficialinfoDAO();
