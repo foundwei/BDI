@@ -7,6 +7,7 @@
  
 var Sequelize = require('sequelize');
 var orm = require("../../utils/mysqlconn.js");
+var logger = require('../../utils/utils.js').logger('model-Locations');
 
 // OR mapping
 var Locations = orm.define('Locations', {
@@ -48,5 +49,40 @@ var LocationsDAO = function() {};
  * implement the methods in LocationsDAO.prototype.
  * 
  */
+LocationsDAO.prototype.save = function(obj) {
+  Locations.create(obj).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+LocationsDAO.prototype.update = function(lid, obj) {
+  Locations.update(obj, {lid : lid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+LocationsDAO.prototype.delete = function(lid) {
+  Locations.destroy({lid : lid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+/**
+ * pn : page number, start from 1 not 0
+ * ps : page size
+ */
+LocationsDAO.prototype.findAllByPage = function(pn, ps, callback) {
+  Locations.findAll({limit: ps, offset: (pn - 1) * ps}, {raw : true, logging : true, plain : false}).on('success', function(res) {
+    callback(res);
+  }).on('failure', function(err){
+    logger.error(err);
+  })
+};
  
 module.exports = new LocationsDAO();
