@@ -7,6 +7,7 @@
  
 var Sequelize = require('sequelize');
 var orm = require("../../utils/mysqlconn.js");
+var logger = require('../../utils/utils.js').logger('model-Sites');
  
 // OR mapping
 var Sites = orm.define('Sites', {
@@ -33,5 +34,40 @@ var SitesDAO = function() {};
  * implement the methods in SitesDAO.prototype.
  * 
  */
+SitesDAO.prototype.save = function(obj) {
+  Sites.create(obj).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+SitesDAO.prototype.update = function(sid, obj) {
+  Sites.update(obj, {sid : sid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+SitesDAO.prototype.delete = function(sid) {
+  Sites.destroy({sid : sid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+/**
+ * pn : page number, start from 1 not 0
+ * ps : page size
+ */
+SitesDAO.prototype.findAllByPage = function(pn, ps, callback) {
+  Sites.findAll({limit: ps, offset: (pn - 1) * ps}, {raw : true, logging : true, plain : false}).on('success', function(res) {
+    callback(res);
+  }).on('failure', function(err){
+    logger.error(err);
+  })
+};
  
 module.exports = new SitesDAO();
