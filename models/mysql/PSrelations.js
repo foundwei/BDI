@@ -7,6 +7,7 @@
  
 var Sequelize = require('sequelize');
 var orm = require("../../utils/mysqlconn.js");
+var logger = require('../../utils/utils.js').logger('model-PSrelations');
  
 // OR mapping
 var PSrelaitons = orm.define('PSrelaitons', {
@@ -48,5 +49,40 @@ var PSrelaitonsDAO = function() {};
  * implement the methods in PSrelaitonsDAO.prototype.
  * 
  */
+PSrelaitonsDAO.prototype.save = function(obj) {
+  PSrelaitons.create(obj).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+PSrelaitonsDAO.prototype.update = function(psid, obj) {
+  PSrelaitons.update(obj, {psid : psid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+PSrelaitonsDAO.prototype.delete = function(psid) {
+  PSrelaitons.destroy({psid : psid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+/**
+ * pn : page number, start from 1 not 0
+ * ps : page size
+ */
+PSrelaitonsDAO.prototype.findAllByPage = function(pn, ps, callback) {
+  PSrelaitons.findAll({limit: ps, offset: (pn - 1) * ps}, {raw : true, logging : true, plain : false}).on('success', function(res) {
+    callback(res);
+  }).on('failure', function(err){
+    logger.error(err);
+  })
+};
  
 module.exports = new PSrelaitonsDAO();
