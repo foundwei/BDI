@@ -12,6 +12,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var log4js = require('./utils/utils.js').log4js;
 var app = express();
 
 // user defined package
@@ -42,6 +43,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client')));
+app.use(log4js.connectLogger(log4js.getLogger('normal'), { level: log4js.levels.INFO }));
 
 // rest api mapping
 app.use('/rest/categories', categories);

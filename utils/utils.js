@@ -20,8 +20,9 @@ log4js.configure({
   replaceConsole: true
 });
 
-exports.logger = function(name) {
+module.exports.log4js = log4js;
+module.exports.logger = function(name) {
   var logger = log4js.getLogger(name);
   logger.setLevel('INFO');
   return logger;
-}
+};
