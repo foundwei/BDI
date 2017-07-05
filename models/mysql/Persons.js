@@ -7,6 +7,7 @@
  
 var Sequelize = require('sequelize');
 var orm = require("../../utils/mysqlconn.js");
+var logger = require('../../utils/utils.js').logger('model-Persons');
  
 // OR mapping
 var Persons = orm.define('Persons', {
@@ -45,5 +46,40 @@ var PersonsDAO = function() {};
  * implement the methods in PersonsDAO.prototype.
  * 
  */
+PersonsDAO.prototype.save = function(obj) {
+  Persons.create(obj).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+PersonsDAO.prototype.update = function(pid, obj) {
+  Persons.update(obj, {pid : pid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+PersonsDAO.prototype.delete = function(pid) {
+  Persons.destroy({pid : pid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+/**
+ * pn : page number, start from 1 not 0
+ * ps : page size
+ */
+PersonsDAO.prototype.findAllByPage = function(pn, ps, callback) {
+  Persons.findAll({limit: ps, offset: (pn - 1) * ps}, {raw : true, logging : true, plain : false}).on('success', function(res) {
+    callback(res);
+  }).on('failure', function(err){
+    logger.error(err);
+  })
+};
 
 module.exports = new PersonsDAO();
