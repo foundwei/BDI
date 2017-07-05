@@ -7,6 +7,7 @@
  
 var Sequelize = require('sequelize');
 var orm = require("../../utils/mysqlconn.js");
+var logger = require('../../utils/utils.js').logger('model-SNlogs');
  
 // OR mapping
 var SNlogs = orm.define('NSlogs', {
@@ -53,7 +54,30 @@ SNlogsDAO.prototype.findOneByFBAccount = function(accname, callback) {
 
 SNlogsDAO.prototype.upsertByAccount = function(object) {
   SNlogs.upsert(object);
-  
+};
+
+SNlogsDAO.prototype.save = function(obj) {
+  SNlogs.create(obj).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+SNlogsDAO.prototype.update = function(snid, obj) {
+  SNlogs.update(obj, {snid : snid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
+};
+
+SNlogsDAO.prototype.delete = function(snid) {
+  SNlogs.destroy({snid : snid}).on('success', function(msg) {
+    logger.info(msg);
+  }).on('failure', function(err){
+    logger.error(err);
+  });
 };
  
  module.exports = new SNlogsDAO();
