@@ -30,12 +30,12 @@ var FacebookDAO = function() {};
 FacebookDAO.prototype.save = function(obj) {
 	var instance = new Facebook(obj);
 	instance.save(function(err) {
- 	if(err) {
-		logger.error(err);
- 	} else {
-  	logger.info('Save a Facebook ok!');
-    }
- });
+	 	if(err) {
+			logger.error(err);
+	 	} else {
+	  	logger.info('Save a Facebook ok!');
+	  }
+	});
 }
 
 /**

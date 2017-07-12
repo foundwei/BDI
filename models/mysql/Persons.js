@@ -79,7 +79,18 @@ PersonsDAO.prototype.findAllByPage = function(pn, ps, callback) {
     callback(res);
   }).on('failure', function(err){
     logger.error(err);
-  })
+  });
+};
+
+/**
+ * Query all the facebook accounts in this table
+ */ 
+PersonsDAO.prototype.queryFB = function(callback) {
+  Persons.findAll({attributes: ['facebook']}).on('success', function(res) {
+    callback(res);
+  }).on('failure', function(err) {
+    logger.error(err);
+  });
 };
 
 module.exports = new PersonsDAO();

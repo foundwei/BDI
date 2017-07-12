@@ -15,8 +15,8 @@ var Ships = orm.define('Ships', {
   shid: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, unique: true, allowNull: false},
   name: {type: Sequelize.STRING, allowNull: false},
   pennantno: {type: Sequelize.STRING, allowNull: false},
-  twitter: {type: Sequelize.STRING, allowNull: false},
-  facebook: {type: Sequelize.STRING, allowNull: false},
+  twitter: {type: Sequelize.STRING, allowNull: true},
+  facebook: {type: Sequelize.STRING, allowNull: true},
   category: {
     type: Sequelize.INTEGER, 
     allowNull: true, 
@@ -71,11 +71,22 @@ ShipsDAO.prototype.delete = function(shid) {
  * ps : page size
  */
 ShipsDAO.prototype.findAllByPage = function(pn, ps, callback) {
-  Ships.findAll({limit: ps, offset: (pn - 1) * ps}, {raw : true, logging : true, plain : false}).on('success', function(res) {
+  Ships.findAll({limit: ps, offset: (pn - 1) * ps}).on('success', function(res) {
     callback(res);
   }).on('failure', function(err){
     logger.error(err);
-  })
+  });
+};
+
+/**
+ * Query all the facebook accounts in this table
+ */ 
+ShipsDAO.prototype.queryFB = function(callback) {
+  Ships.findAll({attributes: ['facebook']}).on('success', function(res) {
+    callback(res);
+  }).on('failure', function(err) {
+    logger.error(err);
+  });
 };
  
 module.exports = new ShipsDAO();
